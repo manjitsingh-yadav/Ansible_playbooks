@@ -1,0 +1,24 @@
+---
+- name: "Set up DNS server on all nodes"
+  hosts: backend
+  tasks:
+    - 
+      lineinfile:
+        line: "nameserver 10.1.214.50"
+        path: /etc/resolv.conf
+      name: "update entry into /etc/resolv.conf"
+    - 
+      name: "create a new user"
+      user:
+        group: 100
+        name: web_user
+        uid: 1040
+-
+  hosts: web
+  name: nginx
+  tasks:
+    -
+      apt:
+        name: nginx
+        state: present
+      name: "install nginx"

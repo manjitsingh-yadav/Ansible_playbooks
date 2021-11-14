@@ -1,0 +1,12 @@
+---
+- hosts: web
+  vars:
+    names:
+      - Alex
+      - bob
+      - Charlie
+
+  tasks:
+    - name: Display an array variable
+      debug:
+        msg: "{{ names[2]}}"

@@ -1,0 +1,29 @@
+---
+-
+  hosts: backend
+  name: Download openjdk
+  tasks:
+    - name: Create user tomcat
+      user:
+        name: tomcat
+        comment: this is tomcat user
+        uid: 1041
+        group: admin
+
+    - name: Create a directory /opt/tomcat8
+      become: yes
+      file:
+        path: /opt/tomcat8
+        state: directory
+        mode: 0755
+        owner: tomcat
+        group: admin
+
+    - name: Download tomcat using get_url
+      become: yes
+      get_url:
+        url: https://download.java.net/java/GA/jdk16.0.1/7147401fd7354114ac51ef3e1328291f/9/GPL/openjdk-16.0.1_linux-x64_bin.tar.gz 
+        dest: /opt/tomcat8
+        mode: 0755
+        group: admin
+        owner: tomcat

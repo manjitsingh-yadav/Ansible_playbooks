@@ -1,0 +1,26 @@
+---
+- hosts: web
+  name:  install
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+
+    - name: Allow https traffic
+      ufw:
+        rule: allow
+        port: http
+        proto: tcp
+      notify:
+        - Restart Apache2
+        - Reload ufw firewall
+  handlers:
+    - name: Restart Apache2
+      service:
+        name: apache2
+        state: restarted
+    - name: Reload ufw firewall
+      ufw:
+        state: enabled

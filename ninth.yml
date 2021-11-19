@@ -1,0 +1,10 @@
+---
+- name: Archive example
+  hosts: localhost
+  tasks:
+    - name: Compress the file and remove
+      become: yes
+      archive:
+        path: /demo_opt
+        dest: /tmp/myfiles.gz
+        remove: yes
